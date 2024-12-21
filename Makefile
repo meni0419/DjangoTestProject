@@ -82,7 +82,7 @@ ifeq ($(OS), Windows_NT)
 		git commit -m "Initial commit" && \
 		gh auth login && \
 		gh repo create $(r) --public --source=. --remote=origin && \
-		git push origin HEAD \
+		git push origin master
 	)
 else
 	@if [ -z "$(r)" ]; then \

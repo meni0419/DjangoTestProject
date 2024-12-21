@@ -22,9 +22,10 @@ from django.urls import path, include
 
 from employees import views
 
+
 urlpatterns = [
     path('', views.homepage, name='homepage'),  # Add homepage view for /
     path('employees/', include('employees.urls')),  # Route for the employees app
-    # path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
 ]
 
