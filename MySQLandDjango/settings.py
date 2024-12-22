@@ -77,13 +77,24 @@ WSGI_APPLICATION = 'MySQLandDjango.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'hr',
+#         'USER': 'root',
+#         'PASSWORD': 'Mamont11021989!!!',
+#         'HOST': '172.100.0.10',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hr',
-        'USER': 'root',
-        'PASSWORD': 'Mamont11021989!!!',
-        'HOST': '172.100.0.10',
+        'USER': 'ich1',
+        'PASSWORD': 'password',
+        'HOST': 'ich-db.edu.itcareerhub.de',
         'PORT': '3306',
     }
 }
@@ -122,22 +133,23 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/translit.kpi-check.online/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Media files (user uploads)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/var/www/translit.kpi-check.online/media/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-CSRF_TRUSTED_ORIGINS = [
-    "https://translit.kpi-check.online"
-]
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# CSRF_TRUSTED_ORIGINS = [
+#     "https://translit.kpi-check.online"
+# ]
