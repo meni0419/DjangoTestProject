@@ -1,7 +1,8 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.db import connection
-
+import json
 
 # Create your views here.
 def employee_list(request):

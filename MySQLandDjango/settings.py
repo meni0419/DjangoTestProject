@@ -24,7 +24,12 @@ SECRET_KEY = 'django-insecure-#4p&l8%dg9m7dk%sqg+649*9vs=ztcx@8uh3u5@8q+v2i0-f*t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'translit.kpi-check.online',  # Your production domain
+    'www.translit.kpi-check.online',  # Common subdomain
+    '127.0.0.1',  # Localhost
+    'localhost'  # Localhost
+]
 
 # Application definition
 
@@ -76,9 +81,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hr',
-        'USER': 'ich1',
-        'PASSWORD': 'password',
-        'HOST': 'ich-db.edu.itcareerhub.de',
+        'USER': 'root',
+        'PASSWORD': 'Mamont11021989!!!',
+        'HOST': '172.100.0.10',
         'PORT': '3306',
     }
 }
@@ -115,9 +120,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATIC_ROOT = '/var/www/translit.kpi-check.online/static/'
+
+# Media files (user uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/var/www/translit.kpi-check.online/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+CSRF_TRUSTED_ORIGINS = [
+    "https://translit.kpi-check.online"
+]
