@@ -83,3 +83,72 @@ async function transliterateText() {
     const data = await response.json();
     document.getElementById("outputText").value = data.transliterated_text;
 }
+
+// document.getElementById("btnPaste").addEventListener("click", async () => {
+//     try {
+//          // Read text from clipboard and Paste text into the input textarea
+//         document.getElementById("inputText").value = await navigator.clipboard.readText();
+//         await transliterateText(); // Trigger the transliteration process automatically
+//     } catch (err) {
+//         console.error("Failed to read clipboard contents: ", err);
+//     }
+// });
+//
+// // Copy text from the output textarea to clipboard
+// document.getElementById("btnCopy").addEventListener("click", () => {
+//     const outputTextarea = document.getElementById("outputText");
+//
+//     if (outputTextarea.value.trim()) { // Proceed only if outputText is not empty
+//         navigator.clipboard.writeText(outputTextarea.value)
+//             .then(() => {
+//                 alert("Text successfully copied to clipboard!"); // Optional confirmation
+//             })
+//             .catch((err) => {
+//                 console.error("Failed to copy text to clipboard: ", err);
+//             });
+//     } else {
+//         alert("No text available to copy!"); // Warn if outputText is empty
+//     }
+// });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const btnPaste = document.getElementById("btnPaste");
+    const btnCopy = document.getElementById("btnCopy");
+
+    // Add event listener for the "Paste" button
+    if (btnPaste) {
+        btnPaste.addEventListener("click", async () => {
+            try {
+                // Read text from clipboard and paste it into the input textarea
+                const text = await navigator.clipboard.readText();
+                document.getElementById("inputText").value = text;
+                await transliterateText(); // Trigger the transliteration process automatically
+            } catch (err) {
+                console.error("Failed to read clipboard contents: ", err);
+            }
+        });
+    } else {
+        console.error("btnPaste not found in the DOM.");
+    }
+
+    // Add event listener for the "Copy" button
+    if (btnCopy) {
+        btnCopy.addEventListener("click", () => {
+            const outputTextarea = document.getElementById("outputText");
+
+            if (outputTextarea.value.trim()) {
+                navigator.clipboard.writeText(outputTextarea.value)
+                    .then(() => {
+                        alert("Text successfully copied to clipboard!"); // Optional confirmation
+                    })
+                    .catch((err) => {
+                        console.error("Failed to copy text to clipboard: ", err);
+                    });
+            } else {
+                alert("No text available to copy!"); // Warn if outputText is empty
+            }
+        });
+    } else {
+        console.error("btnCopy not found in the DOM.");
+    }
+});
