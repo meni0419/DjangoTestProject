@@ -135,11 +135,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnCopy) {
         btnCopy.addEventListener("click", () => {
             const outputTextarea = document.getElementById("outputText");
+            const toastLive = document.getElementById('liveToast')
 
             if (outputTextarea.value.trim()) {
                 navigator.clipboard.writeText(outputTextarea.value)
                     .then(() => {
-                        alert("Text successfully copied to clipboard!"); // Optional confirmation
+                        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLive)
+                        toastBootstrap.show();
                     })
                     .catch((err) => {
                         console.error("Failed to copy text to clipboard: ", err);

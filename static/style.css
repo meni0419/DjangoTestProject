@@ -1,3 +1,14 @@
+#rnd-blue {
+    background-color: #007bff;
+    width: 10px;
+    height: 10px;
+    border-radius: 15px;
+}
+
+.toast-body {
+    color: #333;
+}
+
 #labelToggle {
     cursor: pointer;
 }
@@ -5,9 +16,11 @@
 .form-check-input {
     cursor: pointer;
 }
+
 body {
     background-color: #eee;
 }
+
 /* Smooth transition for theme changes */
 body,
 textarea,
@@ -27,6 +40,7 @@ textarea.dark-mode {
     color: #ffffff; /* Light text inside textareas */
     border: 1px solid #495057;
 }
+
 textarea.dark-mode:focus {
     background-color: #475869; /* Dark background for textareas */
     color: #ffffff; /* Light text inside textareas */
