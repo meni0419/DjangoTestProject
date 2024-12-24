@@ -15,9 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
 // Toggle between light and dark mode
 function toggleTheme() {
     const body = document.body;
-    const themeIcon = document.getElementById("themeToggleIcon");
-
-    // Check the current mode and toggle
+    document.getElementById("themeToggleIcon");
+// Check the current mode and toggle
     if (body.classList.contains("dark-mode")) {
         disableDarkMode();
         localStorage.setItem("theme", "light"); // Save preference to localStorage
@@ -30,8 +29,9 @@ function toggleTheme() {
 // Enable Dark Mode
 function enableDarkMode() {
     document.body.classList.add("dark-mode");
+    document.getElementById("headTitleAndSwitch").classList.add("dark-mode");
     document.getElementById("themeToggleIcon").classList.replace("bi-sun-fill", "bi-moon-fill");
-    document.getElementById("themeToggleIcon").title = "Switch to Day Mode";
+    document.getElementById("themeToggleIcon").title = "Перемкнути на світлу тему";
     document.getElementById("pageTitle").classList.replace("text-primary", "text-info");
     document.getElementById("labelToggle").innerText = "Світла";
 
@@ -48,8 +48,9 @@ function enableDarkMode() {
 // Disable Dark Mode (Light Mode)
 function disableDarkMode() {
     document.body.classList.remove("dark-mode");
+    document.getElementById("headTitleAndSwitch").classList.remove("dark-mode");
     document.getElementById("themeToggleIcon").classList.replace("bi-moon-fill", "bi-sun-fill");
-    document.getElementById("themeToggleIcon").title = "Switch to Night Mode";
+    document.getElementById("themeToggleIcon").title = "Перемкнути на темну тему";
     document.getElementById("pageTitle").classList.replace("text-info", "text-primary");
     document.getElementById("labelToggle").innerText = "Темна";
 
@@ -84,33 +85,6 @@ async function transliterateText() {
     document.getElementById("outputText").value = data.transliterated_text;
 }
 
-// document.getElementById("btnPaste").addEventListener("click", async () => {
-//     try {
-//          // Read text from clipboard and Paste text into the input textarea
-//         document.getElementById("inputText").value = await navigator.clipboard.readText();
-//         await transliterateText(); // Trigger the transliteration process automatically
-//     } catch (err) {
-//         console.error("Failed to read clipboard contents: ", err);
-//     }
-// });
-//
-// // Copy text from the output textarea to clipboard
-// document.getElementById("btnCopy").addEventListener("click", () => {
-//     const outputTextarea = document.getElementById("outputText");
-//
-//     if (outputTextarea.value.trim()) { // Proceed only if outputText is not empty
-//         navigator.clipboard.writeText(outputTextarea.value)
-//             .then(() => {
-//                 alert("Text successfully copied to clipboard!"); // Optional confirmation
-//             })
-//             .catch((err) => {
-//                 console.error("Failed to copy text to clipboard: ", err);
-//             });
-//     } else {
-//         alert("No text available to copy!"); // Warn if outputText is empty
-//     }
-// });
-
 document.addEventListener("DOMContentLoaded", () => {
     const btnPaste = document.getElementById("btnPaste");
     const btnCopy = document.getElementById("btnCopy");
@@ -120,8 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btnPaste.addEventListener("click", async () => {
             try {
                 // Read text from clipboard and paste it into the input textarea
-                const text = await navigator.clipboard.readText();
-                document.getElementById("inputText").value = text;
+                document.getElementById("inputText").value = await navigator.clipboard.readText();
                 await transliterateText(); // Trigger the transliteration process automatically
             } catch (err) {
                 console.error("Failed to read clipboard contents: ", err);

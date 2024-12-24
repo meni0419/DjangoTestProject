@@ -19,6 +19,20 @@
 
 body {
     background-color: #eee;
+    color: #333;
+    background-image: url("/static/img/light_theme_Christmas.png");
+    background-repeat: repeat-y;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* Custom dark theme styles */
+body.dark-mode {
+    background-color: #212529;
+    color: #f8f9fa;
+    background-image: url("/static/img/dark_theme_Christmas.png");
+    background-blend-mode: soft-light;
 }
 
 /* Smooth transition for theme changes */
@@ -29,32 +43,59 @@ label {
     transition: background-color 0.3s linear, color 0.3s linear;
 }
 
-/* Custom dark theme styles */
-body.dark-mode {
-    background-color: #212529;
-    color: #f8f9fa;
+.transparent-glass {
+    background: rgba(255, 255, 255, 0.2); /* White with transparency */
+    backdrop-filter: blur(8px); /* Blur effect for the glass */
+    -webkit-backdrop-filter: blur(8px); /* For Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Subtle border to separate */
+    border-radius: 8px; /* Smooth rounded corners */
+    color: #444; /* Text color for readability */
+    padding: 10px;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    transition: all 0.3s ease-in-out; /* Animation for smooth interaction */
 }
 
-textarea.dark-mode {
-    background-color: #475869; /* Dark background for textareas */
-    color: #ffffff; /* Light text inside textareas */
-    border: 1px solid #495057;
+.transparent-glass::placeholder {
+    color: #444; /* Slightly faded placeholder text */
 }
 
-textarea.dark-mode:focus {
-    background-color: #475869; /* Dark background for textareas */
-    color: #ffffff; /* Light text inside textareas */
-    border: 1px solid #495057;
+.transparent-glass:focus {
+    border-color: rgba(255, 255, 255, 0.8); /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+    background: rgba(255, 255, 255, 0.25); /* Slightly less transparent */
 }
 
-textarea.dark-mode::placeholder {
-    color: #dddddd; /* Placeholder text remains light */
+textarea.transparent-glass.dark-mode {
+    background: rgba(0, 0, 0, 0.5); /* Darker background */
+    color: #ffffff; /* White text for contrast */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
 }
 
-.card.dark-mode {
-    background-color: #343a40; /* Dark card background */
-    border: 1px solid #495057;
+textarea.transparent-glass.dark-mode::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Subtle placeholder color */
 }
+
+/*textarea.dark-mode {*/
+/*    background-color: #0d0f1088;*/
+/*    color: #ffffff;*/
+/*    border: 1px solid #495057;*/
+/*}*/
+
+/*textarea.dark-mode:focus {*/
+/*    background-color: #0d0f1088;*/
+/*    color: #ffffff;*/
+/*    border: 1px solid #495057;*/
+/*}*/
+
+/*textarea.dark-mode::placeholder {*/
+/*    color: #dddddd; !* Placeholder text remains light *!*/
+/*}*/
+
+/*.card.dark-mode {*/
+/*    background: linear-gradient(165deg, #000916aa, #160000);*/
+/*    border: 1px solid #272a2d;*/
+/*}*/
 
 /* Labels must remain light in dark mode */
 label.dark-mode {

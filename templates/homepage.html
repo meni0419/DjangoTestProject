@@ -18,8 +18,8 @@
 <!-- Container -->
 <div class="container">
     <!-- Page Header with Theme Toggle -->
-    <div class="d-flex justify-content-between align-items-center my-4">
-        <h1 id="pageTitle" class="text-primary">Змінити раскладку тексту</h1>
+    <div id="headTitleAndSwitch" class="d-flex justify-content-between transparent-glass align-items-center my-4">
+        <h1 id="pageTitle" class="text-primary">Виправити розкладку з англ. </h1>
         <div class="form-check form-switch">
             <label id="labelToggle" for="flexSwitchCheckDefault">Темна</label>
             <input id="flexSwitchCheckDefault" title="Увімкніть нічний режим"
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="card shadow">
+    <div class="card shadow transparent-glass">
         <div class="card-body">
             {% csrf_token %}
             <!-- Responsive Grid Layout for Textareas -->
@@ -39,7 +39,7 @@
                 <div class="col-12 col-lg-6 mb-3">
                     <label for="inputText" class="form-label fw-semibold">Введіть неправильний текст:</label>
                     <button id="btnPaste" class="btn-12"><span>Тисни!</span><span>Вставити</span></button>
-                    <textarea id="inputText" class="form-control" rows="6"
+                    <textarea id="inputText" class="form-control transparent-glass" rows="6"
                               placeholder="Вставте сюди" oninput="transliterateText();"></textarea>
                 </div>
 
@@ -47,7 +47,7 @@
                 <div class="col-12 col-lg-6 mb-3">
                     <label for="outputText" class="form-label fw-semibold">Отримайте правильний текст:</label>
                     <button id="btnCopy" class="btn-12"><span>Тисни!</span><span>Скопіювати</span></button>
-                    <textarea id="outputText" class="form-control" rows="6"
+                    <textarea id="outputText" class="form-control transparent-glass" rows="6"
                               placeholder="Тут буде правильний текст" readonly></textarea>
                 </div>
             </div>
