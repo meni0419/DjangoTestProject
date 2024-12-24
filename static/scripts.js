@@ -127,3 +127,70 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("btnCopy not found in the DOM.");
     }
 });
+
+// Snowfall Animation Script with Random Attributes
+document.addEventListener("DOMContentLoaded", () => {
+    const maxSnowflakes = 100; // Number of snowflakes
+    const snowContainer = document.createElement("div");
+
+    // Set container styles
+    snowContainer.style.position = "fixed";
+    snowContainer.style.top = "0";
+    snowContainer.style.left = "0";
+    snowContainer.style.width = "100%";
+    snowContainer.style.height = "100%";
+    snowContainer.style.pointerEvents = "none";
+    snowContainer.style.overflow = "hidden";
+    document.body.appendChild(snowContainer);
+
+    // Random helper function
+    const randomInRange = (min, max) => Math.random() * (max - min) + min;
+
+    for (let i = 0; i < maxSnowflakes; i++) {
+        const snowflake = document.createElement("div");
+        snowflake.className = "snowflake";
+
+        // Randomize properties
+        const size = `${randomInRange(3, 5)}px`;
+        const opacity = randomInRange(0.5, 1).toFixed(2);
+        const startLeft = `${randomInRange(0, 100)}%`;
+        const fallDuration = `${randomInRange(5, 10)}s`;
+        const swayDuration = `${randomInRange(3, 5)}s`;
+        const delay = `${randomInRange(0, 3)}s`;
+
+        // Set properties to CSS variables
+        snowflake.style.setProperty("--size", size);
+        snowflake.style.setProperty("--opacity", opacity);
+        snowflake.style.setProperty("--start-left", startLeft);
+        snowflake.style.setProperty("--fall-duration", fallDuration);
+        snowflake.style.setProperty("--sway-duration", swayDuration);
+        snowflake.style.setProperty("--delay", delay);
+
+        // Debugging for the first snowflake
+        if (i === 0) {
+            console.log("First Snowflake Debug:");
+            console.log(`  Size: ${size}`);
+            console.log(`  Opacity: ${opacity}`);
+            console.log(`  Start Left: ${startLeft}`);
+            console.log(`  Fall Duration: ${fallDuration}`);
+            console.log(`  Sway Duration: ${swayDuration}`);
+            console.log(`  Delay: ${delay}`);
+        }
+
+        snowContainer.appendChild(snowflake);
+    }
+
+    // Reset snowflake positions if they fall off-screen
+    setInterval(() => {
+        document.querySelectorAll(".snowflake").forEach(snowflake => {
+            const rect = snowflake.getBoundingClientRect();
+            if (rect.top > window.innerHeight) {
+                const newLeft = `${Math.random() * 100}%`;
+                snowflake.style.setProperty("--start-left", newLeft);
+                snowflake.style.animation = "none"; // Stop animation temporarily
+                void snowflake.offsetWidth; // Trigger reflow for reanimation
+                snowflake.style.animation = ""; // Restart animation
+            }
+        });
+    }, 1000);
+});

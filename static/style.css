@@ -1,3 +1,50 @@
+/* Snowflake Animation */
+:root {
+    --delay: 0s;
+    --start-left: 50%;
+    --opacity: 0.8; /* Default opacity */
+}
+
+.snowflake {
+    position: absolute;
+    top: -10px;
+    width: var(--size, 10px); /* Use random size */
+    height: var(--size, 10px); /* Same size as width */
+    background-color: white; /* Snowflake appearance as a circle */
+    border-radius: 50%; /* Makes the div circular */
+    opacity: var(--opacity, 0.8); /* Support transparency */
+    left: var(--start-left, 50%); /* Random horizontal position */
+    animation-name: fall, sway; /* Falling and swaying animations */
+    animation-duration: var(--fall-duration, 5s), var(--sway-duration, 3s);
+    animation-timing-function: linear, ease-in-out; /* Smooth animation */
+    animation-iteration-count: infinite, infinite; /* Keeps looping */
+    pointer-events: none; /* Elements don’t block interactions */
+}
+
+@keyframes fall {
+    to {
+        top: calc(100% - 10px); /* Ensure they stop above the bottom edge */
+    }
+}
+
+@keyframes sway {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(30px); /* Sway motion */
+    }
+}
+
+/* Styling the snowflakes */
+.snowflake {
+    width: var(--size, 5px);
+    height: var(--size, 5px);
+    opacity: var(--opacity, 0.8);
+    left: var(--start-left, 50%);
+    animation-delay: var(--delay, 0s);
+}
+
 .bi-moon-fill {
     color: #fff;
 }
@@ -124,14 +171,15 @@ label.dark-mode {
     line-height: 35px;
     -webkit-perspective: 230px;
     perspective: 230px;
-    color: #eee;    background-color: transparent;
+    color: #eee;
+    background-color: transparent;
 }
 
 .btn-12 span {
     background: rgb(0, 172, 238);
     background: linear-gradient(0deg, rgba(52, 152, 219, 1) 0%, rgba(41, 128, 185, 1) 100%); /* Softer and more organic blue gradient */
     box-shadow: inset 2px 2px 2px 0 rgba(255, 255, 255, 0.5), 7px 7px 20px 0 rgba(0, 0, 0, 0.1),
-                4px 4px 5px 0 rgba(0, 0, 0, 0.1);
+    4px 4px 5px 0 rgba(0, 0, 0, 0.1);
     display: block;
     position: absolute;
     width: 105px;
@@ -148,7 +196,7 @@ label.dark-mode {
 
 .btn-12 span:nth-child(1) {
     box-shadow: -7px -7px 20px 0 rgba(255, 255, 255, 0.5), -4px -4px 5px 0 rgba(255, 255, 255, 0.5),
-                7px 7px 20px 0 rgba(0, 0, 0, 0.1), 4px 4px 5px 0 rgba(0, 0, 0, 0.1);
+    7px 7px 20px 0 rgba(0, 0, 0, 0.1), 4px 4px 5px 0 rgba(0, 0, 0, 0.1);
     -webkit-transform: rotateX(90deg);
     -moz-transform: rotateX(90deg);
     transform: rotateX(90deg);
@@ -168,7 +216,7 @@ label.dark-mode {
 
 .btn-12:hover span:nth-child(1) {
     box-shadow: inset 3px 3px 6px 0 rgba(0, 0, 0, 0.2), 7px 7px 20px 0 rgba(0, 0, 0, 0.15),
-                4px 4px 5px 0 rgba(0, 0, 0, 0.1);
+    4px 4px 5px 0 rgba(0, 0, 0, 0.1);
     -webkit-transform: rotateX(0deg);
     -moz-transform: rotateX(0deg);
     transform: rotateX(0deg);
@@ -194,13 +242,13 @@ body.dark-mode .btn-12 span {
 
 body.dark-mode .btn-12 span:nth-child(1) {
     box-shadow: -7px -7px 20px 0 rgba(0, 0, 0, 0.5), -4px -4px 5px 0 rgba(0, 0, 0, 0.5),
-                7px 7px 20px 0 rgba(255, 255, 255, 0.1), 4px 4px 5px 0 rgba(255, 255, 255, 0.1);
+    7px 7px 20px 0 rgba(255, 255, 255, 0.1), 4px 4px 5px 0 rgba(255, 255, 255, 0.1);
 }
 
 /* HOVER EFFECT IN DARK MODE */
 body.dark-mode .btn-12:hover span:nth-child(1) {
     box-shadow: inset 3px 3px 6px 0 rgba(255, 255, 255, 0.2), 7px 7px 20px 0 rgba(255, 255, 255, 0.15),
-                4px 4px 5px 0 rgba(255, 255, 255, 0.1);
+    4px 4px 5px 0 rgba(255, 255, 255, 0.1);
 }
 
 /* BUTTON TEXT STYLES */

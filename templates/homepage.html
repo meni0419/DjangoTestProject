@@ -14,7 +14,6 @@
     <link href="{% static 'style.css' %}" rel="stylesheet">
 </head>
 <body>
-
 <!-- Container -->
 <div class="container">
     <!-- Page Header with Theme Toggle -->
@@ -32,6 +31,7 @@
 
     <div class="card shadow transparent-glass">
         <div class="card-body">
+            <div class="snowflake" style="--fall-duration: 6.5s; --sway-duration: 4s; --size: 10px;"></div>
             {% csrf_token %}
             <!-- Responsive Grid Layout for Textareas -->
             <div class="row">
