@@ -124,20 +124,18 @@ label.dark-mode {
     line-height: 35px;
     -webkit-perspective: 230px;
     perspective: 230px;
-    color: #fff;
-    background-color: transparent;
+    color: #eee;    background-color: transparent;
 }
 
 .btn-12 span {
     background: rgb(0, 172, 238);
-    background: linear-gradient(0deg, rgba(0, 172, 238, 1) 0%, rgba(2, 126, 251, 1) 100%);
+    background: linear-gradient(0deg, rgba(52, 152, 219, 1) 0%, rgba(41, 128, 185, 1) 100%); /* Softer and more organic blue gradient */
+    box-shadow: inset 2px 2px 2px 0 rgba(255, 255, 255, 0.5), 7px 7px 20px 0 rgba(0, 0, 0, 0.1),
+                4px 4px 5px 0 rgba(0, 0, 0, 0.1);
     display: block;
     position: absolute;
     width: 105px;
     height: 35px;
-    box-shadow: inset 2px 2px 2px 0 rgba(255, 255, 255, .5),
-    7px 7px 20px 0 rgba(0, 0, 0, .1),
-    4px 4px 5px 0 rgba(0, 0, 0, .1);
     border-radius: 5px;
     margin: 0;
     text-align: center;
@@ -149,10 +147,8 @@ label.dark-mode {
 }
 
 .btn-12 span:nth-child(1) {
-    box-shadow: -7px -7px 20px 0 #fff9,
-    -4px -4px 5px 0 #fff9,
-    7px 7px 20px 0 #0002,
-    4px 4px 5px 0 #0001;
+    box-shadow: -7px -7px 20px 0 rgba(255, 255, 255, 0.5), -4px -4px 5px 0 rgba(255, 255, 255, 0.5),
+                7px 7px 20px 0 rgba(0, 0, 0, 0.1), 4px 4px 5px 0 rgba(0, 0, 0, 0.1);
     -webkit-transform: rotateX(90deg);
     -moz-transform: rotateX(90deg);
     transform: rotateX(90deg);
@@ -171,9 +167,8 @@ label.dark-mode {
 }
 
 .btn-12:hover span:nth-child(1) {
-    box-shadow: inset 2px 2px 2px 0 rgba(255, 255, 255, .5),
-    7px 7px 20px 0 rgba(0, 0, 0, .1),
-    4px 4px 5px 0 rgba(0, 0, 0, .1);
+    box-shadow: inset 3px 3px 6px 0 rgba(0, 0, 0, 0.2), 7px 7px 20px 0 rgba(0, 0, 0, 0.15),
+                4px 4px 5px 0 rgba(0, 0, 0, 0.1);
     -webkit-transform: rotateX(0deg);
     -moz-transform: rotateX(0deg);
     transform: rotateX(0deg);
@@ -187,4 +182,29 @@ label.dark-mode {
     -webkit-transform: rotateX(-90deg);
     -moz-transform: rotateX(-90deg);
     transform: rotateX(-90deg);
+}
+
+
+/* DARK MODE BUTTONS */
+body.dark-mode .btn-12 span {
+    background: linear-gradient(0deg, rgba(44, 62, 80, 1) 0%, rgba(52, 73, 94, 1) 100%); /* Matching dark gradient tones */
+    /*box-shadow: inset 2px 2px 2px 0 rgba(0, 0, 0, 0.5), 7px 7px 20px 0 rgba(255, 255, 255, 0.1),*/
+    /*            4px 4px 5px 0 rgba(255, 255, 255, 0.1);*/
+}
+
+body.dark-mode .btn-12 span:nth-child(1) {
+    box-shadow: -7px -7px 20px 0 rgba(0, 0, 0, 0.5), -4px -4px 5px 0 rgba(0, 0, 0, 0.5),
+                7px 7px 20px 0 rgba(255, 255, 255, 0.1), 4px 4px 5px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* HOVER EFFECT IN DARK MODE */
+body.dark-mode .btn-12:hover span:nth-child(1) {
+    box-shadow: inset 3px 3px 6px 0 rgba(255, 255, 255, 0.2), 7px 7px 20px 0 rgba(255, 255, 255, 0.15),
+                4px 4px 5px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* BUTTON TEXT STYLES */
+.btn-12 span:nth-child(2) {
+    color: rgba(255, 255, 255, 0.9); /* Slightly softened text color for better readability */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2); /* Adding depth to button text */
 }
