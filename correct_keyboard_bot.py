@@ -69,7 +69,7 @@ async def transliterate(update: Update, context: CallbackContext) -> int:
         return ConversationHandler.END
 
     await update.message.reply_text(f"Here's your transliterated text:")
-    await update.message.reply_text(f"```\n{converted_text}\n```", parse_mode="MarkdownV2")
+    await update.message.reply_text(f"{converted_text}")
     return TRANSLITERATION  # Allow sending more messages
 
 
