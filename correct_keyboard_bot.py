@@ -18,6 +18,7 @@ from telegram.ext import (
 )
 
 from employees.models import Message
+from asgiref.sync import sync_to_async
 
 # Define states
 LANGUAGE_SELECTION, TRANSLITERATION = range(2)
@@ -63,6 +64,7 @@ async def transliterate(update: Update, context: CallbackContext) -> int:
     language = context.user_data.get("language")
     chat_id = update.message.chat_id  # Get Telegram chat ID
 
+    # Transliterate text based on selected language
     if language == "ua":
         converted_text = transliterate_ua_text(text)
     elif language == "ru":
@@ -73,12 +75,19 @@ async def transliterate(update: Update, context: CallbackContext) -> int:
 
     await update.message.reply_text(f"Here's your transliterated text:")
     await update.message.reply_text(f"{converted_text}")
-    Message.objects.create(
-        id_chat=chat_id,
-        platform="telegram",
-        lang=language,
-        message=converted_text
-    )
+
+    # Save message to database asynchronously
+    try:
+        await sync_to_async(Message.objects.create)(
+            id_chat=chat_id,
+            platform="telegram",
+            lang=language,
+            message=converted_text
+        )
+        print("Message successfully saved to the database.")
+    except Exception as e:
+        print(f"Error saving message: {e}")
+
     return TRANSLITERATION  # Allow sending more messages
 
 
