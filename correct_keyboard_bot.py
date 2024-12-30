@@ -1,11 +1,18 @@
-# Import the transliteration functions
-from employees.views import transliterate_ua_text, transliterate_ru_text
+# Load Django environment settings
 import os
 import django
 
-# Load Django environment settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MySQLandDjango.settings')  # Replace with your project settings module
 django.setup()
+# Import the transliteration functions
+from employees.views import transliterate_ua_text, transliterate_ru_text
+import sys
+from django.conf import settings
+
+print("Django settings loaded successfully.")
+print("INSTALLED_APPS:", settings.INSTALLED_APPS)
+
+sys.path.append('/home/mm/PycharmProjects/MySQLandDjango')
 
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup
 from telegram.ext import (
