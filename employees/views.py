@@ -2,37 +2,32 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.db import connection
+from .models import Message
 import json
-
-# Create your views here.
-def employee_list(request):
-    # Connect to the database and execute the query
-    with connection.cursor() as cursor:
-        query = """
-            SELECT e.first_name, e.last_name, e.salary
-            FROM employees e
-            WHERE e.salary > 10000;
-        """
-        cursor.execute(query)
-        results = cursor.fetchall()  # Fetch all results as a list of tuples
-
-    employees = [{'first_name': row[0], 'last_name': row[1], 'salary': row[2]} for row in results]
-
-    # Pass the results to the template
-    return render(request, 'employees/employee_list.html', {'employees': employees})
 
 
 def homepage(request):
     if request.method == 'POST':
         text = request.POST.get("text", "")
         language = request.POST.get("language", "ua")
+        platform = request.POST.get("platform", "Unknown")
         if language == "ua":
             transliterated_text = transliterate_ua_text(text)
-            return JsonResponse({'transliterated_text': transliterated_text})
         elif language == "ru":
             transliterated_text = transliterate_ru_text(text)
-            return JsonResponse({'transliterated_text': transliterated_text})
+        else:
+            transliterated_text = text
+
+        Message.objects.create(
+            id_chat=None,
+            platform=platform,
+            lang=language,
+            message=transliterated_text
+        )
+
+        return JsonResponse({'transliterated_text': transliterated_text})
     return render(request, 'homepage.html')
+
 
 def transliterate_ua_text(input_text):
     # Translation table for faster replacements
@@ -49,6 +44,7 @@ def transliterate_ua_text(input_text):
 
     return input_text.translate(translation_table)
 
+
 def transliterate_ru_text(input_text):
     # Create a translation table
     translation_table = str.maketrans({
@@ -63,3 +59,19 @@ def transliterate_ru_text(input_text):
 
     # Use translate to transform the input text
     return input_text.translate(translation_table)
+
+def employee_list(request):
+    # Connect to the database and execute the query
+    with connection.cursor() as cursor:
+        query = """
+            SELECT e.first_name, e.last_name, e.salary
+            FROM employees e
+            WHERE e.salary > 10000;
+        """
+        cursor.execute(query)
+        results = cursor.fetchall()  # Fetch all results as a list of tuples
+
+    employees = [{'first_name': row[0], 'last_name': row[1], 'salary': row[2]} for row in results]
+
+    # Pass the results to the template
+    return render(request, 'employees/employee_list.html', {'employees': employees})

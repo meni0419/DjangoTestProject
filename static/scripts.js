@@ -80,12 +80,23 @@ function disableDarkMode() {
     document.querySelectorAll(".card").forEach((card) => card.classList.remove("dark-mode"));
 }
 
+function getBrowserName() {
+    const userAgent = navigator.userAgent;
+
+    if (userAgent.includes("Chrome") && !userAgent.includes("Edg")) return "Chrome";
+    if (userAgent.includes("Firefox")) return "Firefox";
+    if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) return "Safari";
+    if (userAgent.includes("Edg")) return "Edge";
+    if (userAgent.includes("Opera") || userAgent.includes("OPR")) return "Opera";
+    return "Unknown";
+}
+
 // Transliterate input text function (replace with your logic)
 async function transliterateText() {
     const inputText = document.getElementById("inputText").value;
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     const language = document.getElementById('language').value;
-
+    const browser = getBrowserName();
     // Placeholder for POST request (replace with your Django logic)
     const response = await fetch("/", {
         method: "POST",
@@ -95,7 +106,8 @@ async function transliterateText() {
         },
         body: new URLSearchParams({
             "text": inputText,
-            "language": language
+            "language": language,
+            "platform": browser
         })
     });
 
