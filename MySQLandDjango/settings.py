@@ -77,16 +77,16 @@ WSGI_APPLICATION = 'MySQLandDjango.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'translit',
-#         'USER': 'root',
-#         'PASSWORD': 'Mamont11021989!!!',
-#         'HOST': '172.100.0.10',
-#         'PORT': '3306',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'translit',
+        'USER': 'root',
+        'PASSWORD': 'Mamont11021989!!!',
+        'HOST': '172.100.0.10',
+        'PORT': '3306',
+    }
+}
 
 # DATABASES = {
 #     'default': {
@@ -99,16 +99,16 @@ WSGI_APPLICATION = 'MySQLandDjango.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'translit',
-        'USER': 'root',
-        'PASSWORD': 'XKAsssew',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'translit',
+#         'USER': 'root',
+#         'PASSWORD': 'XKAsssew',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -157,10 +157,10 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# CSRF_COOKIE_SECURE = True
-# SESSION_COOKIE_SECURE = True
-# SECURE_SSL_REDIRECT = True
-# CSRF_TRUSTED_ORIGINS = [
-#     "https://translit.kpi-check.online"
-# ]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+CSRF_TRUSTED_ORIGINS = [
+    "https://translit.kpi-check.online"
+]
