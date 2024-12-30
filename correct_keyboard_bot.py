@@ -4,16 +4,9 @@ import django
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'MySQLandDjango.settings')  # Replace with your project settings module
 django.setup()
+
 # Import the transliteration functions
 from employees.views import transliterate_ua_text, transliterate_ru_text
-import sys
-from django.conf import settings
-
-print("Django settings loaded successfully.")
-print("INSTALLED_APPS:", settings.INSTALLED_APPS)
-
-sys.path.append('/home/mm/PycharmProjects/MySQLandDjango')
-
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup
 from telegram.ext import (
     Application,
@@ -23,6 +16,8 @@ from telegram.ext import (
     CallbackContext,
     ConversationHandler,
 )
+
+from employees.models import Message
 
 # Define states
 LANGUAGE_SELECTION, TRANSLITERATION = range(2)
@@ -66,6 +61,7 @@ async def set_language(update: Update, context: CallbackContext) -> int:
 async def transliterate(update: Update, context: CallbackContext) -> int:
     text = update.message.text
     language = context.user_data.get("language")
+    chat_id = update.message.chat_id  # Get Telegram chat ID
 
     if language == "ua":
         converted_text = transliterate_ua_text(text)
@@ -77,6 +73,12 @@ async def transliterate(update: Update, context: CallbackContext) -> int:
 
     await update.message.reply_text(f"Here's your transliterated text:")
     await update.message.reply_text(f"{converted_text}")
+    Message.objects.create(
+        id_chat=chat_id,
+        platform="telegram",
+        lang=language,
+        message=converted_text
+    )
     return TRANSLITERATION  # Allow sending more messages
 
 
