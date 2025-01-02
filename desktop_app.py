@@ -124,12 +124,39 @@ def save_theme_preference(theme):
         config.write(configfile)
 
 
+def save_hotkeys(ua_hotkey: str, ru_hotkey: str):
+    """
+    Save the provided hotkeys for Ukrainian and Russian transliteration to the config file.
+    """
+    config = configparser.ConfigParser()
+    if os.path.exists(CONFIG_FILE):
+        config.read(CONFIG_FILE)  # Retain existing settings
+
+    # Add or update the hotkeys in the 'Preferences' section
+    if 'Preferences' not in config:
+        config['Preferences'] = {}
+    config['Preferences']['ua_hotkey'] = ua_hotkey
+    config['Preferences']['ru_hotkey'] = ru_hotkey
+
+    with open(CONFIG_FILE, 'w') as configfile:
+        config.write(configfile)
+
+
 def load_theme_preference() -> str:
     config: configparser.ConfigParser = configparser.ConfigParser()
     if config.read(CONFIG_FILE) and 'Preferences' in config:
         preferences: dict = dict(config['Preferences'])
         return preferences.get('theme', 'Light')
     return 'Light'
+
+
+def load_hotkeys() -> tuple[str, str]:
+    config = configparser.ConfigParser()
+    if config.read(CONFIG_FILE) and 'Preferences' in config:
+        ua_hotkey = config['Preferences'].get('ua_hotkey', '<alt>+<delete>')  # Default for Ukrainian
+        ru_hotkey = config['Preferences'].get('ru_hotkey', '<alt>+<end>')  # Default for Russian
+        return ua_hotkey, ru_hotkey
+    return '<alt>+<delete>', '<alt>+<end>'  # Default hotkeys
 
 
 #     # Use translate to transform the input text
@@ -139,6 +166,8 @@ class TransliterationApp(QWidget):
         super().__init__()
         # For theme persistence
         self.current_theme = load_theme_preference()
+        # Initialize hotkeys from saved preferences
+        self.ua_hotkey, self.ru_hotkey = load_hotkeys()
         # Define instance attributes in __init__
         self.input_text = None
         self.language_selection = None
@@ -149,8 +178,6 @@ class TransliterationApp(QWidget):
         self.paste_btn = None
         self.theme_switcher = None
         # Initialize hotkeys
-        self.ua_hotkey = '<alt>+<delete>'  # Default hotkey for Ukrainian transliteration
-        self.ru_hotkey = '<alt>+<end>'  # Default hotkey for Russian transliteration
         self.hotkeys_listener = None
         self.register_hotkeys()
         # Initialize the UI
@@ -165,7 +192,7 @@ class TransliterationApp(QWidget):
         """
         # Create a system tray icon
         self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(QIcon('static/img/botico.png'))  # Use your custom icon here
+        self.tray_icon.setIcon(QIcon('./botico.png'))  # Use your custom icon here
         self.tray_icon.setToolTip("Transliteration App")
 
         # Create a menu for system tray icon
@@ -214,7 +241,7 @@ class TransliterationApp(QWidget):
 
     def init_ui(self):
         self.setWindowTitle("Transliteration App")
-        self.setWindowIcon(QIcon('static/img/botico.png'))
+        self.setWindowIcon(QIcon('./botico.png'))
         self.setGeometry(300, 300, 400, 300)
 
         # Layout
@@ -325,6 +352,9 @@ class TransliterationApp(QWidget):
             self.ru_hotkey = settings_dialog.get_ru_hotkey()
             self.register_hotkeys()  # Re-register hotkeys with new values
 
+            # Save the updated hotkeys to the config file
+            save_hotkeys(self.ua_hotkey, self.ru_hotkey)
+
     def switch_theme(self):
         selected_theme = self.theme_switcher.currentText()
         theme = 'Light' if selected_theme == "Light Theme" else 'Dark'
@@ -376,7 +406,7 @@ class TransliterationApp(QWidget):
             keyboard_controller.press('x')
             keyboard_controller.release('x')
 
-        sleep(0.2)
+        sleep(0.5)
         input_text = pyperclip.paste()
 
         if not input_text.strip():
