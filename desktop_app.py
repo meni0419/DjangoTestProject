@@ -192,7 +192,10 @@ class TransliterationApp(QWidget):
         """
         # Create a system tray icon
         self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(QIcon('./botico.png'))  # Use your custom icon here
+
+        # Set an appropriate icon (absolute path recommended)
+        tray_icon_path = os.path.abspath('./botico.png')  # Update to an absolute path
+        self.tray_icon.setIcon(QIcon(tray_icon_path))
         self.tray_icon.setToolTip("Transliteration App")
 
         # Create a menu for system tray icon
@@ -208,10 +211,10 @@ class TransliterationApp(QWidget):
         exit_action.triggered.connect(self.close_app)  # When clicked, exit the app
         tray_menu.addAction(exit_action)
 
-        # Set the menu to tray icon
+        # Set the menu to the tray icon
         self.tray_icon.setContextMenu(tray_menu)
 
-        # Show tray icon
+        # Show the system tray icon
         self.tray_icon.show()
 
     def show_app(self):
@@ -220,6 +223,7 @@ class TransliterationApp(QWidget):
         """
         self.showNormal()  # Restore the app window if it is minimized
         self.activateWindow()  # Bring it to focus
+        print("Application restored from system tray.")  # Optional debug log
 
     def close_app(self):
         """
@@ -232,12 +236,14 @@ class TransliterationApp(QWidget):
         """
         Override the close event to hide the app in the system tray instead of quitting.
         """
-        event.ignore()  # Ignore the close event
-        self.hide()  # Hide the app window instead of closing it
-        self.tray_icon.showMessage("Transliteration App",
-                                   "Application minimized to tray. Right-click the tray icon for options.",
-                                   QSystemTrayIcon.Information,
-                                   3000)  # Show a 3-second notification
+        event.ignore()  # Ignore the default close event
+        self.hide()  # Explicitly hide the main window
+        self.tray_icon.showMessage(
+            "Transliteration App",
+            "Application minimized to system tray.",
+            QSystemTrayIcon.Information,
+            3000,  # Show for 3 seconds
+        )
 
     def init_ui(self):
         self.setWindowTitle("Transliteration App")
@@ -400,13 +406,13 @@ class TransliterationApp(QWidget):
         Reads selected text from the clipboard, transliterates it,
         and replaces the selected text in the active application.
         """
-        keyboard_controller = Controller()
-
-        with keyboard_controller.pressed(Key.ctrl):
-            keyboard_controller.press('x')
-            keyboard_controller.release('x')
-
-        sleep(0.5)
+        # keyboard_controller = Controller()
+        #
+        # with keyboard_controller.pressed(Key.ctrl):
+        #     keyboard_controller.press('x')
+        #     keyboard_controller.release('x')
+        #
+        # sleep(0.5)
         input_text = pyperclip.paste()
 
         if not input_text.strip():
@@ -424,10 +430,10 @@ class TransliterationApp(QWidget):
         # Write transliterated text back to clipboard
         pyperclip.copy(result)
         print(f"Text replaced with: {result}")
-        # Simulate a paste using pynput
-        with keyboard_controller.pressed(Key.ctrl):
-            keyboard_controller.press('v')
-            keyboard_controller.release('v')
+        # # Simulate a paste using pynput
+        # with keyboard_controller.pressed(Key.ctrl):
+        #     keyboard_controller.press('v')
+        #     keyboard_controller.release('v')
 
 
 class HotkeySettingsDialog(QDialog):
